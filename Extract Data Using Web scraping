@@ -1,0 +1,46 @@
+#The wikipedia webpage https://en.wikipedia.org/wiki/List_of_largest_banks provides information about largest banks in the world by various parameters. Scrape the data from the table 'By market capitalization' and store it in a JSON file.
+
+#Webpage Contents
+#Gather the contents of the webpage in text format using the REQUESTS library and assign it to the variable 'html_data'
+
+url = "https://en.wikipedia.org/wiki/List_of_largest_banks"
+html_data=requests.get(url).text
+
+#Question 1 Print out the output of the following line, and remember it as it will be a quiz question:
+html_data[101:124]
+#output: 'List of largest banks -'
+
+#Scraping the Data
+#Question 2 Using the contents and beautiful soup load the data from the By market capitalization table into a pandas dataframe. The dataframe should have the bank Name and Market Cap (US$ Billion) as column names. Display the first five rows using head.
+#Using BeautifulSoup parse the contents of the webpage.
+soup=BeautifulSoup(html_data, "html.parser")
+
+#Load the data from the By market capitalization table into a pandas dataframe. 
+#The dataframe should have the bank Name and Market Cap (US$ Billion) as column names. 
+#Using the empty dataframe data and the given loop extract the necessary data from each 
+#row and append it to the empty dataframe.
+data = pd.DataFrame(columns=["Name", "Market Cap (US$ Billion)"])
+for row in soup.find_all('tbody')[3].find_all('tr'):
+    col = row.find_all('td')
+    #Write your code here
+    if (col!=[]):
+        name = col[1].text
+        market_cap = col[2].text.strip()
+        data = data.append({"Name":name, "Market Cap (US$ Billion)":market_cap}, ignore_index=True)
+        data['Name'].replace('\n', '', regex=True, inplace=True)
+
+#Question 3 Display the first five rows using the head function.
+#Write your code here
+data.head(5)
+#output: Name	Market Cap (US$ Billion)
+#0	JPMorgan Chase	400.37[6]
+#1	Industrial and Commercial Bank of China	295.65
+#2	Bank of America	279.73
+#3	Wells Fargo	214.34
+#4	China Construction Bank	207.98
+
+Loading the Data
+Usually you will Load the pandas dataframe created above into a JSON named bank_market_cap.json 
+using the to_json() function, but this time the data will be sent to another team who will split 
+the data file into two files and inspect it. If you save the data it will interfere with the 
+next part of the assignment.
