@@ -39,8 +39,8 @@ data.head(5)
 #3	Wells Fargo	214.34
 #4	China Construction Bank	207.98
 
-Loading the Data
-Usually you will Load the pandas dataframe created above into a JSON named bank_market_cap.json 
-using the to_json() function, but this time the data will be sent to another team who will split 
-the data file into two files and inspect it. If you save the data it will interfere with the 
-next part of the assignment.
+#Loading the Data
+#Usually you will Load the pandas dataframe created above into a JSON named bank_market_cap.json 
+#using the to_json() function, but this time the data will be sent to another team who will split 
+#the data file into two files and inspect it. If you save the data it will interfere with the 
+#next part of the assignment.
